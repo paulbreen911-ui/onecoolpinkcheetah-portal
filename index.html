@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>One Cool Pink Cheetah</title>
+<meta name="description" content="Projects by One Cool Pink Cheetah.">
+<meta name="theme-color" content="#ff4fa3">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hero">
+  <div class="spots" aria-hidden="true"></div>
+  <img src="favicon.svg" alt="" class="logo" width="72" height="72">
+  <h1>One Cool <span>Pink</span> Cheetah</h1>
+  <p class="tag">Games, worlds and experiments.</p>
+</header>
+<main>
+  <h2>Projects</h2>
+  <ul id="projects" class="grid"></ul>
+</main>
+<footer>&copy; <span id="yr"></span> One Cool Pink Cheetah</footer>
+<script type="module">
+import projects from "./projects.js";
+const ul = document.getElementById("projects");
+for (const p of projects) {
+  const li = document.createElement("li");
+  li.innerHTML = `<a class="card" href="${p.url}">
+    <img src="${p.image}" alt="" loading="lazy">
+    <div><h3></h3><p></p><div class="tags"></div><span class="host"></span></div></a>`;
+  li.querySelector("h3").textContent = p.name;
+  li.querySelector("p").textContent = p.blurb;
+  li.querySelector(".host").textContent = new URL(p.url).host;
+  for (const t of p.tags || []) { const s = document.createElement("span"); s.textContent = t; li.querySelector(".tags").append(s); }
+  ul.append(li);
+}
+document.getElementById("yr").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
