@@ -28,10 +28,11 @@ import projects from "./projects.js";
 const ul = document.getElementById("projects");
 for (const p of projects) {
   const li = document.createElement("li");
-  li.innerHTML = `<a class="card" href="${p.url}">
+  li.innerHTML = `<div class="card">
     <img src="${p.image}" alt="" loading="lazy">
-    <div><h3></h3><p></p><div class="tags"></div><span class="host"></span></div></a>`;
-  li.querySelector("h3").textContent = p.name;
+    <div><h3><a class="stretch" href="${p.url}"></a></h3><p></p><div class="tags"></div><span class="host"></span></div></div>`;
+  li.querySelector("h3 a").textContent = p.name;
+  if (p.action) { const b = document.createElement("a"); b.className = "play"; b.href = p.url; b.textContent = p.action; b.setAttribute("aria-label", `${p.action} ${p.name}`); li.querySelector(".card > div").append(b); }
   li.querySelector("p").textContent = p.blurb;
   li.querySelector(".host").textContent = new URL(p.url).host;
   for (const t of p.tags || []) { const s = document.createElement("span"); s.textContent = t; li.querySelector(".tags").append(s); }
