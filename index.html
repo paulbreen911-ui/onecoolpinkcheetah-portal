@@ -34,7 +34,7 @@ for (const p of projects) {
   li.querySelector("h3 a").textContent = p.name;
   if (p.action) { const b = document.createElement("a"); b.className = "play"; b.href = p.url; b.textContent = p.action; b.setAttribute("aria-label", `${p.action} ${p.name}`); li.querySelector(".card > div").append(b); }
   li.querySelector("p").textContent = p.blurb;
-  li.querySelector(".host").textContent = new URL(p.url).host;
+  li.querySelector(".host").textContent = (u => u.host + u.pathname.replace(/\/$/, ""))(new URL(p.url, location.href));
   for (const t of p.tags || []) { const s = document.createElement("span"); s.textContent = t; li.querySelector(".tags").append(s); }
   ul.append(li);
 }
